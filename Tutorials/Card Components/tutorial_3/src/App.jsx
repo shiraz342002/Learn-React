@@ -1,11 +1,13 @@
+import Button from "./components/Button/Button"
 import Card from "./components/card"
 function App() {
  
   return (
     <>
+     {/* <Card/>
      <Card/>
-     <Card/>
-     <Card/>
+     <Card/> */}
+     <Button/>
     </>
   )
 }
