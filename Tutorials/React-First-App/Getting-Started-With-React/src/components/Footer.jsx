@@ -1,11 +1,15 @@
 import React from 'react'
+// rafce
 import "./Footer.css"
 const Footer = () => {
   return (
     <div className='footer'>
-      Copyright &copy; www.codewithharry.com | All rights reserved
+      <footer>
+      Copyright &copy; { new Date().getFullYear()} www.ShirazMazhar.com | All rights reserved
+      </footer>
     </div>
   )
 }
 
 export default Footer
+
