@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 
 function Counter() {
+    let a=1
     const [count,setCount]=useState(0)
     const increment=()=>{
         setCount(count+1)
@@ -13,7 +14,7 @@ function Counter() {
     }
   return (
     <div>
-         <h1 style={{ fontSize: "84px" }}>{count}</h1>
+         <h1 style={{ fontSize: "84px" }}>{a}</h1>
       <button onClick={increment} className='increment'>Increment</button>
       <button onClick={decement} className='decrement'>Decremnt</button>
       <button onClick={reset} className='reset'>Reset</button>
