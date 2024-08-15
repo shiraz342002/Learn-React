@@ -1,7 +1,7 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 function Counter() {
-    let a=1
+    
     const [count,setCount]=useState(0)
     const increment=()=>{
         setCount(count+1)
@@ -12,9 +12,17 @@ function Counter() {
     const reset=()=>{
         setCount(0)
     }
+    useEffect(() => {
+      alert("This is useEffect")
+     }, [])
+ 
+    //  useEffect(() => {
+    //   alert("Count was Changed")
+    //  }, [count])
+
   return (
     <div>
-         <h1 style={{ fontSize: "84px" }}>{a}</h1>
+         <h1 style={{ fontSize: "84px" }}>{count}</h1>
       <button onClick={increment} className='increment'>Increment</button>
       <button onClick={decement} className='decrement'>Decremnt</button>
       <button onClick={reset} className='reset'>Reset</button>
