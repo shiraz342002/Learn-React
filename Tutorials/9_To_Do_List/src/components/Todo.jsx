@@ -11,7 +11,6 @@ const Todo = () => {
 
     function AddTodo() {
         if (newTask.trim()) { 
-            // console.log(newTask);
             setTask([...tasks, newTask]);
             setNewTask(""); 
         }
