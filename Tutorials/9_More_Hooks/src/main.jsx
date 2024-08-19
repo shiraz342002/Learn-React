@@ -4,9 +4,7 @@ import App from './App.jsx'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <App />
-  </StrictMode>,
+  // </StrictMode>,
 )
-// https://youtu.be/TNhaISOUy6Q?t=2
-// https://www.youtube.com/watch?v=LOH1l-MP_9k&pp=ygUSaG9va3MgaW4gcmVhY3QganMg
