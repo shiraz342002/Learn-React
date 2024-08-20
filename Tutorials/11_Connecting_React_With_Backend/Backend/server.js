@@ -13,8 +13,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  console.log("Data from front-end");
-  
   console.log(req.body);
   res.json({ status: 'Data received' });
 });

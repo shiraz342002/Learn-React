@@ -25,8 +25,6 @@ export default function App() {
 
   const onSubmit = async (data) => {
     try {
-      console.log("set");
-  
       let response = await fetch("http://localhost:3001", {
         method: "POST",
         headers: {
@@ -36,9 +34,9 @@ export default function App() {
       });
   
       let text = await response.text(); // Use .text() to handle text responses
-      console.log(data, text);
     } catch (error) {
       console.error('Error:', error);
+    }
       //To simulate delay 
       // await delay(3);
     
@@ -53,7 +51,6 @@ export default function App() {
       //   setError("blocked", { message: "You are blocked from the website" });
       //   return;
       // }
-    }
   };
     
   
