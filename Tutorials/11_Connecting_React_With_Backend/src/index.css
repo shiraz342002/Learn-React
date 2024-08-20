@@ -30,6 +30,12 @@
   font-size: 14px;
   margin-bottom: 10px;
 }
+.loadingMessage {
+  color: blue;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
 .submitButton {
   padding: 10px;

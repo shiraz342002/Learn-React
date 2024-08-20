@@ -1,69 +1,123 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import "./index.css";
+import { json } from "express";
 
 export default function App() {
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    setError,
+    clearErrors, // Make sure clearErrors is imported
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const delay = (d) => {
+    console.log("Creating Your account....");
 
-  // console.log(watch("example"));
+    return new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, d * 1000);
+    });
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      console.log("set");
+  
+      let response = await fetch("http://localhost:3001", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Ensure this header is set
+        },
+        body: JSON.stringify(data),
+      });
+  
+      let text = await response.text(); // Use .text() to handle text responses
+      console.log(data, text);
+    } catch (error) {
+      console.error('Error:', error);
+      //To simulate delay 
+      // await delay(3);
+    
+      //For authorization
+    
+      // if (data.username !== "shiraz") {
+      //   console.log("Registration Failed");
+      //   setError("auth", { message: "Invalid username or password" });
+      //   return;
+      // } else if (data.email === "ali@gmail.com") {
+      //   console.log("Registration Failed");
+      //   setError("blocked", { message: "You are blocked from the website" });
+      //   return;
+      // }
+    }
+  };
+    
+  
+  
+
+  const handleFieldChange = () => {
+    clearErrors("auth");
+    clearErrors("blocked");
+  };
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <input type="email" placeholder="email"
-         {...register("email",
-         {required:"email is required",
-         minLength:{
-          value:3,message:"email must be longer than 3 characters"
-         },
-        
-         pattern:{
-          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-          message:"email is not valid"
-         }
-         }
-         )} />
+    <>
+      {isSubmitting && <div className="loadingMessage">Loading...</div>}
+      <div className="container">
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <input
+            placeholder="username"
+            {...register("username", {
+              required: "Username is required",
+              minLength: {
+                value: 3,
+                message: "Username must be at least 3 characters",
+              },
+              maxLength: {
+                value: 12,
+                message: "Username must not exceed 12 characters",
+              },
+            })}
+            className="input"
+            onChange={handleFieldChange}
+          />
+          {errors.username && <div className="error">{errors.username.message}</div>}
 
+          <input
+            type="email"
+            placeholder="email"
+            {...register("email", {
+              required: "Email is required",
+              minLength: {
+                value: 3,
+                message: "Email must be longer than 3 characters",
+              },
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Email is not valid",
+              },
+            })}
+            className="input"
+            onChange={handleFieldChange}
+          />
+          {errors.email && <div className="error">{errors.email.message}</div>}
 
-        <input
-          placeholder="username"
-          {...register("username", {
-            required: "Username is required",
-            minLength: {
-              value: 3,
-              message: "Username must be at least 3 characters",
-            },
-            maxLength: {
-              value: 8,
-              message: "Username must not exceed 8 characters",
-            },
-          })}
-          className="input"
-        />
-        {/* Error message for username */}
-        {errors.username && (
-          <div className="error">{errors.username.message}</div>
-        )}
-        <br />
-        <input
-          placeholder="password"
-          {...register("password", { required: "Password is required" })}
-          className="input"
-        />
-        {/* Error message for password */}
-        {errors.password && (
-          <div className="error">{errors.password.message}</div>
-        )}
-        <br />
-        <input type="submit" className="submitButton" />
-      </form>
-    </div>
+          <input
+            placeholder="password"
+            {...register("password", { required: "Password is required" })}
+            className="input"
+            onChange={handleFieldChange}
+          />
+          {errors.password && <div className="error">{errors.password.message}</div>}
+          <input disabled={isSubmitting} type="submit" className="submitButton" />
+          {errors.auth && <div className="error">{errors.auth.message}</div>}
+          {errors.blocked && <div className="error">{errors.blocked.message}</div>}
+        </form>
+      </div>
+    </>
   );
 }
