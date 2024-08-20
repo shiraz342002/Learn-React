@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import "./index.css";
-// import { json } from "express";
 
 export default function App() {
   const {
@@ -9,7 +8,7 @@ export default function App() {
     handleSubmit,
     watch,
     setError,
-    clearErrors, // Make sure clearErrors is imported
+    clearErrors,
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -25,15 +24,14 @@ export default function App() {
 
   const onSubmit = async (data) => {
     try {
-      let response = await fetch("http://localhost:3001", {
+      let response = await fetch("http://localhost:3001/users", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // Ensure this header is set
+          "Content-Type": "application/json", 
         },
         body: JSON.stringify(data),
       });
-  
-      let text = await response.text(); // Use .text() to handle text responses
+      alert("Form submitted successfully!");
     } catch (error) {
       console.error('Error:', error);
     }
